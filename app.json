@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "RNExercises",
-    "slug": "RNExercises",
+    "name": "crypto-tracker",
+    "slug": "crypto-tracker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
