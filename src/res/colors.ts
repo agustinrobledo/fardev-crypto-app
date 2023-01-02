@@ -1,9 +1,8 @@
 const colors = {
-  primary: "#8839ef",
-  orange: "#ef9f76",
-  green: "#fe640b",
-  blue: "#04a5e5",
-  background: "#1e1e2e",
+  primary: "#ffd803",
+  secondary: "#e3f6f5",
+  headline: "#272343",
+  background: "#272343",
 };
 
 export default colors;

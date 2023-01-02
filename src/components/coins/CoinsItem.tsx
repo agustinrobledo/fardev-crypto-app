@@ -1,19 +1,20 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import React from "react";
 import { IFCoin } from "../../types/coins/typeCoins";
 import colors from "../../res/colors";
 
 type coinsItemTypeProps = {
   coin: IFCoin;
+  handlePress: () => void;
 };
 
-export default function CoinsItem({ coin }: coinsItemTypeProps) {
+export default function CoinsItem({ coin, handlePress }: coinsItemTypeProps) {
   return (
-    <View style={styles.itemContainer}>
+    <Pressable onPress={handlePress} style={styles.itemContainer}>
       <Text style={styles.symbol}>{coin.symbol}</Text>
       <Text style={styles.name}>{coin.name}</Text>
       <Text style={styles.price}>${Number(coin.price_usd).toFixed(2)}</Text>
-    </View>
+    </Pressable>
   );
 }
 
