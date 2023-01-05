@@ -1,7 +1,8 @@
-import { View, Text, StyleSheet } from "react-native";
-import React, { useEffect } from "react";
+import { View, Text, StyleSheet, Image } from "react-native";
+import React, { useEffect, useState } from "react";
 import { IFCoin } from "../../types/coins/typeCoins";
 import colors from "../../res/colors";
+import Http from "../../libs/http";
 
 type detailProps = {
   route: {
@@ -12,65 +13,98 @@ type detailProps = {
 };
 
 export default function CoinDetailScreen({ route }: detailProps) {
-  useEffect(() => console.log(route.params.coin), []);
+  const [coin, setCoin] = useState<IFCoin>({
+    id: "",
+    name: "",
+    price_usd: "",
+    symbol: "",
+    percent_change_1h: "",
+    csupply: "",
+    percent_change_24h: "",
+    percent_change_7d: "",
+    price_btc: "",
+    rank: 0,
+  });
+  const [imgCoin, setImgCoin] = useState<string>("");
+
+  useEffect(() => setCoin(route.params.coin), []);
+
   return (
     <View style={styles.container}>
-      <View style={styles.rankContainer}>
-        <Text style={styles.title}>Rank</Text>
-        <Text style={styles.rankValue}>{route.params.coin.rank}</Text>
+      <View style={styles.section}>
+        <Image
+          style={styles.image}
+          source={{
+            uri: `https://c1.coinlore.com/img/25x25/${coin.name.toLowerCase()}.png`,
+          }}
+        />
+        <Text style={[styles.text, styles.coinText]}>{coin.symbol}</Text>
       </View>
-      <View style={styles.containerStats}>
-        <View style={styles.percentStats}>
-          <Text>Last hour change:</Text>
-          <Text>{route.params.coin.percent_change_1h}</Text>
+      <View style={styles.sectionStats}>
+        <View style={styles.rank}>
+          <Text style={[styles.text]}>Price in USD</Text>
+          <Text style={[styles.text]}>${coin.price_usd}</Text>
+        </View>
+        <View style={styles.rank}>
+          <Text style={[styles.text]}>Rank</Text>
+          <Text style={[styles.text]}>{coin.rank}</Text>
         </View>
       </View>
-      {/* <View style={styles.percentStats}>
-        <Text>Last day change</Text>
-        <Text>{route.params.coin.percent_change_24h}</Text>
-      </View> */}
+      <View style={styles.section}>
+        <Text style={[styles.text]}>Last hour change:</Text>
+        <Text style={[styles.text]}>{coin.percent_change_1h}</Text>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.text}>Last day change:</Text>
+        <Text style={styles.text}>{coin.percent_change_24h}</Text>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.text}>Csupply:</Text>
+        <Text style={styles.text}>{coin.csupply}</Text>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    paddingTop: 20,
-    backgroundColor: colors.background,
+    display: "flex",
     height: "100%",
-    width: "100%",
+    backgroundColor: colors.background,
   },
-  rankContainer: {
-    flexDirection: "column",
-    height: 100,
-    backgroundColor: colors.secondary,
-    borderRadius: 5,
-    alignItems: "center",
-    justifyContent: "center",
-    marginLeft: 20,
-    flex: 1,
+  text: {
+    color: "white",
+    fontSize: 16,
   },
-  title: {
-    fontSize: 20,
+  coinText: {
+    fontWeight: "600",
+    marginLeft: 4,
+    fontSize: 16,
   },
-  rankValue: {
-    fontSize: 24,
-  },
-  containerStats: {
-    flex: 2,
+  section: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    display: "flex",
     flexDirection: "row",
-    height: 100,
-    marginHorizontal: 20,
-    borderRadius: 5,
-    alignContent: "center",
     alignItems: "center",
-    justifyContent: "space-around",
-    backgroundColor: colors.secondary,
   },
-  percentStats: {
-    flexDirection: "column",
+  image: {
+    width: 25,
+    height: 25,
+  },
+  sectionStats: {
+    padding: 20,
+    display: "flex",
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-around",
+  },
+  rank: {
+    backgroundColor: colors.terciary,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    borderRadius: 10,
     justifyContent: "center",
+    alignItems: "center",
   },
 });

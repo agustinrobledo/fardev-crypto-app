@@ -25,25 +25,25 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 4,
     backgroundColor: colors.background,
-    color: "white",
+    color: colors.text,
   },
   symbol: {
-    color: "white",
+    color: colors.text,
     flex: 1,
     fontSize: 16,
   },
   name: {
-    color: "white",
+    color: colors.text,
     flex: 2,
     fontSize: 16,
   },
   price: {
-    color: "white",
+    color: colors.text,
     flex: 1,
     fontSize: 18,
   },
   positiveChange: {
     fontSize: 15,
-    color: "white",
+    color: colors.text,
   },
 });

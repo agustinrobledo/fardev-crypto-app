@@ -15,6 +15,7 @@ export default function CoinStack() {
         options={{
           headerStyle: { backgroundColor: colors.primary },
           headerTitleAlign: "center",
+          headerTintColor: colors.text,
         }}
       />
       <Stack.Screen
@@ -24,6 +25,7 @@ export default function CoinStack() {
           title: route.params.coin.name,
           headerStyle: { backgroundColor: colors.secondary },
           headerTitleAlign: "center",
+          headerTintColor: colors.text,
         })}
       />
     </Stack.Navigator>
