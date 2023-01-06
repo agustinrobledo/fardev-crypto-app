@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { IFCoin } from "../../types/coins/typeCoins";
 import colors from "../../res/colors";
 import Http from "../../libs/http";
+import CoinsItem from "./CoinsItem";
 
 type detailProps = {
   route: {

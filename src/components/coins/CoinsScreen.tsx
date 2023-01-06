@@ -10,6 +10,7 @@ import SearchCoin from "./SearchCoin";
 export default function CoinsScreen() {
   const navigation = useNavigation();
   const [coins, setCoins] = useState<IFCoin[]>([]);
+  const [allCoins, setAllCoins] = useState<IFCoin[]>([]);
 
   useEffect(() => {
     loadCoins();
@@ -21,9 +22,20 @@ export default function CoinsScreen() {
         "https://api.coinlore.net/api/tickers/"
       );
       setCoins(res);
+      setAllCoins(res);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleSearch = (query: string) => {
+    const coinsFiltered = allCoins.filter((coin) => {
+      return (
+        coin.name.toLowerCase().includes(query.toLowerCase()) ||
+        coin.symbol.toLowerCase().includes(query.toLowerCase())
+      );
+    });
+    setCoins(coinsFiltered);
   };
 
   const handlePress = (coin: IFCoin) => {
@@ -33,7 +45,7 @@ export default function CoinsScreen() {
 
   return (
     <View style={styles.container}>
-      <SearchCoin />
+      <SearchCoin onChange={handleSearch} />
       {coins.length ? (
         <View>
           <FlatList
@@ -42,7 +54,6 @@ export default function CoinsScreen() {
               <CoinsItem handlePress={() => handlePress(item)} coin={item} />
             )}
           ></FlatList>
-          <Text>coinsScreen</Text>
         </View>
       ) : (
         <View style={styles.loadingContainer}>
