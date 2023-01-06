@@ -40,27 +40,25 @@ export default function CoinDetailScreen({ route }: detailProps) {
         />
         <Text style={[styles.text, styles.coinText]}>{coin.symbol}</Text>
       </View>
-      <View style={styles.sectionStats}>
-        <View style={styles.rank}>
-          <Text style={[styles.text]}>Price in USD</Text>
-          <Text style={[styles.text]}>${coin.price_usd}</Text>
-        </View>
-        <View style={styles.rank}>
-          <Text style={[styles.text]}>Rank</Text>
-          <Text style={[styles.text]}>{coin.rank}</Text>
-        </View>
+      <View style={styles.sectionInfo}>
+        <Text style={[styles.title]}>Price in USD</Text>
+        <Text style={[styles.info]}>${coin.price_usd}</Text>
       </View>
-      <View style={styles.section}>
-        <Text style={[styles.text]}>Last hour change:</Text>
-        <Text style={[styles.text]}>{coin.percent_change_1h}</Text>
+      <View style={styles.sectionInfo}>
+        <Text style={[styles.title]}>Rank</Text>
+        <Text style={[styles.info]}>{coin.rank}</Text>
       </View>
-      <View style={styles.section}>
-        <Text style={styles.text}>Last day change:</Text>
-        <Text style={styles.text}>{coin.percent_change_24h}</Text>
+      <View style={styles.sectionInfo}>
+        <Text style={[styles.title]}>Last hour change:</Text>
+        <Text style={[styles.info]}>{coin.percent_change_1h}</Text>
       </View>
-      <View style={styles.section}>
-        <Text style={styles.text}>Csupply:</Text>
-        <Text style={styles.text}>{coin.csupply}</Text>
+      <View style={styles.sectionInfo}>
+        <Text style={styles.title}>Last day change:</Text>
+        <Text style={styles.info}>{coin.percent_change_24h}</Text>
+      </View>
+      <View style={styles.sectionInfo}>
+        <Text style={styles.title}>Csupply:</Text>
+        <Text style={styles.info}>{coin.csupply}</Text>
       </View>
     </View>
   );
@@ -81,12 +79,28 @@ const styles = StyleSheet.create({
     marginLeft: 4,
     fontSize: 16,
   },
+  title: {
+    backgroundColor: colors.headline,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    color: colors.text,
+    fontSize: 18,
+  },
+  info: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    color: colors.text,
+  },
   section: {
     paddingHorizontal: 20,
     paddingVertical: 10,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
+  },
+  sectionInfo: {
+    display: "flex",
+    flexDirection: "column",
   },
   image: {
     width: 25,

@@ -5,6 +5,7 @@ import type { IFCoin } from "../../types/coins/typeCoins";
 import CoinsItem from "./CoinsItem";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../../res/colors";
+import SearchCoin from "./SearchCoin";
 
 export default function CoinsScreen() {
   const navigation = useNavigation();
@@ -32,6 +33,7 @@ export default function CoinsScreen() {
 
   return (
     <View style={styles.container}>
+      <SearchCoin />
       {coins.length ? (
         <View>
           <FlatList
