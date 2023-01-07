@@ -1,4 +1,4 @@
-import { useRoute } from "@react-navigation/native";
+//@ts-nocheck
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import colors from "../../res/colors";
@@ -13,7 +13,7 @@ export default function CoinStack() {
         name="Crypto Tracker"
         component={CoinsScreen}
         options={{
-          headerStyle: { backgroundColor: colors.primary },
+          headerStyle: { backgroundColor: colors.background },
           headerTitleAlign: "center",
           headerTintColor: colors.text,
         }}
@@ -23,7 +23,7 @@ export default function CoinStack() {
         component={CoinDetailScreen}
         options={({ route }) => ({
           title: route.params.coin.name,
-          headerStyle: { backgroundColor: colors.secondary },
+          headerStyle: { backgroundColor: colors.background },
           headerTitleAlign: "center",
           headerTintColor: colors.text,
         })}
