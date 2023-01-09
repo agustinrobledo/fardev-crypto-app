@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import CoinStack from "./src/components/coins/CoinsStack";
+import FavoritesStack from "./src/components/favorites/FavoritesStack";
 import colors from "./src/res/colors";
 
 const Tabs = createBottomTabNavigator();
@@ -25,6 +26,11 @@ export default function App() {
           options={{ headerShown: false }}
           name="Coins"
           component={CoinStack}
+        />
+        <Tabs.Screen
+          name="Favorites"
+          options={{ headerShown: false }}
+          component={FavoritesStack}
         />
       </Tabs.Navigator>
     </NavigationContainer>

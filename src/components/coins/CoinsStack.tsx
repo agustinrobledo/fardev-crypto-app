@@ -2,7 +2,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import colors from "../../res/colors";
-import CoinDetailScreen from "./CoinDetailScreen";
+import CoinDetailScreen from "../coin/CoinDetailScreen";
 import CoinsScreen from "./CoinsScreen";
 
 const Stack = createNativeStackNavigator();
