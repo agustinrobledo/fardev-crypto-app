@@ -1,6 +1,5 @@
-import { View, Text } from "react-native";
-import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
 import FavoriteDetailScreen from "./FavoriteDetailScreen";
 import colors from "../../res/colors";
 
