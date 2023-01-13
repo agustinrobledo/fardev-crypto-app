@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignContent: "center",
-    paddingTop: 20,
+    paddingTop: 30,
   },
   emptyText: {
     alignSelf: "center",
