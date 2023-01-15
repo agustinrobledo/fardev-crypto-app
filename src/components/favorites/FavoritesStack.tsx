@@ -11,6 +11,7 @@ export default function FavoritesStack() {
       <Stack.Screen
         name="Favorites Coins"
         options={{
+          headerTitle: "Favorites",
           headerStyle: { backgroundColor: colors.background },
           headerTitleAlign: "center",
           headerTintColor: colors.text,
