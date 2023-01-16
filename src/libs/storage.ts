@@ -27,16 +27,18 @@ export default class Storage {
   multiGet = async (keys: string[]) => {
     try {
       return await AsyncStorage.multiGet(keys);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+      throw Error(error);
     }
   };
 
   getAllKeys = async () => {
     try {
       return await AsyncStorage.getAllKeys();
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+      throw Error(error);
     }
   };
 

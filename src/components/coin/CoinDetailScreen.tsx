@@ -1,9 +1,7 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, Pressable, StyleSheet, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import { IFCoin } from "../../types/coins/typeCoins";
 import colors from "../../res/colors";
-import Http from "../../libs/http";
-import CoinsItem from "../coins/CoinsItem";
 
 type detailProps = {
   route: {
@@ -61,6 +59,11 @@ export default function CoinDetailScreen({ route }: detailProps) {
         <Text style={styles.title}>Csupply:</Text>
         <Text style={styles.info}>{coin.csupply}</Text>
       </View>
+      <Pressable onPress={() => console.log("Favorite press")}>
+        <View>
+          <Text>Add to favorites</Text>
+        </View>
+      </Pressable>
     </View>
   );
 }
