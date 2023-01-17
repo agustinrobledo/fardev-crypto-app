@@ -90,6 +90,11 @@ const styles = StyleSheet.create({
     color: colors.text,
     fontSize: 18,
   },
+  addToFavorites: {
+    paddingVertical: 18,
+    paddingHorizontal: 20,
+    backgroundColor: colors.secondary,
+  },
   info: {
     paddingVertical: 10,
     paddingHorizontal: 20,
