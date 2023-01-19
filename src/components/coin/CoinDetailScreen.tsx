@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   addToFavorites: {
-    paddingVertical: 18,
+    paddingVertical: 20,
     paddingHorizontal: 20,
     backgroundColor: colors.secondary,
   },
