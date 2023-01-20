@@ -25,19 +25,33 @@ export default function CoinDetailScreen({ route }: detailProps) {
     rank: 0,
   });
   const [imgCoin, setImgCoin] = useState<string>("");
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   useEffect(() => setCoin(route.params.coin), []);
 
   return (
     <View style={styles.container}>
-      <View style={styles.section}>
-        <Image
-          style={styles.image}
-          source={{
-            uri: `https://c1.coinlore.com/img/25x25/${coin.name.toLowerCase()}.png`,
-          }}
-        />
-        <Text style={[styles.text, styles.coinText]}>{coin.symbol}</Text>
+      <View style={styles.header}>
+        <View style={styles.section}>
+          <Image
+            style={styles.image}
+            source={{
+              uri: `https://c1.coinlore.com/img/25x25/${coin.name.toLowerCase()}.png`,
+            }}
+          />
+          <Text style={[styles.text, styles.coinText]}>{coin.symbol}</Text>
+        </View>
+        <Pressable onPress={() => setIsFavorite(!isFavorite)}>
+          <View
+            style={
+              isFavorite ? styles.deleteFromFavorites : styles.addToFavorites
+            }
+          >
+            <Text>
+              {isFavorite ? "Delete from favorites" : "Add to favorites"}
+            </Text>
+          </View>
+        </Pressable>
       </View>
       <View style={styles.sectionInfo}>
         <Text style={[styles.title]}>Price in USD</Text>
@@ -59,11 +73,6 @@ export default function CoinDetailScreen({ route }: detailProps) {
         <Text style={styles.title}>Csupply:</Text>
         <Text style={styles.info}>{coin.csupply}</Text>
       </View>
-      <Pressable onPress={() => console.log("Favorite press")}>
-        <View>
-          <Text>Add to favorites</Text>
-        </View>
-      </Pressable>
     </View>
   );
 }
@@ -77,6 +86,10 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     fontSize: 16,
+  },
+  header: {
+    display: "flex",
+    flexDirection: "row",
   },
   coinText: {
     fontWeight: "600",
@@ -93,6 +106,13 @@ const styles = StyleSheet.create({
   addToFavorites: {
     paddingVertical: 20,
     paddingHorizontal: 20,
+    backgroundColor: colors.primary,
+    flex: 3,
+  },
+  deleteFromFavorites: {
+    paddingVertical: 20,
+    flex: 3,
+    paddingHorizontal: 20,
     backgroundColor: colors.secondary,
   },
   info: {
@@ -102,6 +122,7 @@ const styles = StyleSheet.create({
   },
   section: {
     paddingHorizontal: 20,
+    flex: 1,
     paddingVertical: 10,
     display: "flex",
     flexDirection: "row",
