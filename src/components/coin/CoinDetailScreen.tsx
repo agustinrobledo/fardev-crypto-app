@@ -1,4 +1,5 @@
 import { View, Text, Pressable, StyleSheet, Image } from "react-native";
+import Storage from "../../libs/storage";
 import React, { useEffect, useState } from "react";
 import { IFCoin } from "../../types/coins/typeCoins";
 import colors from "../../res/colors";
@@ -27,8 +28,64 @@ export default function CoinDetailScreen({ route }: detailProps) {
   const [imgCoin, setImgCoin] = useState<string>("");
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
-  useEffect(() => setCoin(route.params.coin), []);
+  useEffect(() => {
+    setCoin(route.params.coin);
+  }, []);
 
+  useEffect(() => {
+    if (coin.id) {
+      getFavorite();
+    }
+  }, [coin]);
+
+  const toggleFavorite = () => {
+    if (isFavorite) {
+      removeFavorite();
+    } else {
+      addFavorite();
+    }
+  };
+
+  const removeFavorite = async () => {
+    try {
+      const key = `favorite-${coin.id}`;
+
+      const removed = await Storage.instance.remove(key);
+
+      if (removed) {
+        setIsFavorite(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addFavorite = async () => {
+    try {
+      const coinJson = JSON.stringify(coin);
+      const key = `favorite-${coin.id}`;
+
+      const stored = await Storage.instance.store(key, coinJson);
+
+      if (stored) {
+        setIsFavorite(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getFavorite = async () => {
+    try {
+      const key = `favorite-${coin.id}`;
+      console.log(key);
+
+      const favoriteCoin = await Storage.instance.get(key);
+      if (favoriteCoin?.length) {
+        setIsFavorite(true);
+      }
+    } catch (error) {}
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -41,7 +98,7 @@ export default function CoinDetailScreen({ route }: detailProps) {
           />
           <Text style={[styles.text, styles.coinText]}>{coin.symbol}</Text>
         </View>
-        <Pressable onPress={() => setIsFavorite(!isFavorite)}>
+        <Pressable onPress={toggleFavorite}>
           <View
             style={
               isFavorite ? styles.deleteFromFavorites : styles.addToFavorites
