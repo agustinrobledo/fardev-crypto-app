@@ -1,13 +1,18 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import colors from "../../res/colors";
 import type { IFCoin } from "../../types/coins/typeCoins";
 import Storage from "../../libs/storage";
+import CoinsItem from "../coins/CoinsItem";
+import { useNavigation } from "@react-navigation/native";
 
 export default function FavoriteDetailScreen() {
+  const navigation = useNavigation();
   const [favoriteCoins, setFavoriteCoins] = useState<IFCoin[]>([]);
+  console.log(favoriteCoins);
   useEffect(() => {
-    loadFavoriteCoins();
+    navigation.addListener("focus", () => loadFavoriteCoins());
+    return navigation.removeListener("focus", () => loadFavoriteCoins());
   }, []);
 
   const loadFavoriteCoins = async () => {
@@ -15,17 +20,35 @@ export default function FavoriteDetailScreen() {
       const keys = await Storage.instance.getAllFavoriteKeys();
       if (keys?.length) {
         const coins = await Storage.instance.multiGet(keys);
-        console.log(coins);
-        setFavoriteCoins(coins);
+        const favorites: IFCoin[] = coins.map((item) => JSON.parse(item[1]));
+        console;
+        setFavoriteCoins(favorites);
       }
       console.log(keys);
     } catch (error) {}
   };
+
+  const handlePress = (coin: IFCoin) => {
+    //@ts-ignore
+    navigation.navigate("CoinDetail", { coin });
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.emptyText}>
-        You don't have any favorite coin yet.
-      </Text>
+      {favoriteCoins.length ? (
+        <View>
+          <FlatList
+            data={favoriteCoins}
+            renderItem={({ item }) => (
+              <CoinsItem handlePress={() => handlePress(item)} coin={item} />
+            )}
+          ></FlatList>
+        </View>
+      ) : (
+        <Text style={styles.emptyText}>
+          You don't have any favorite coin yet.
+        </Text>
+      )}
     </View>
   );
 }

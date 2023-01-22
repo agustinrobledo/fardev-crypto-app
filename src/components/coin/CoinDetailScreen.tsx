@@ -3,6 +3,7 @@ import Storage from "../../libs/storage";
 import React, { useEffect, useState } from "react";
 import { IFCoin } from "../../types/coins/typeCoins";
 import colors from "../../res/colors";
+import { useNavigation } from "@react-navigation/native";
 
 type detailProps = {
   route: {
@@ -13,6 +14,7 @@ type detailProps = {
 };
 
 export default function CoinDetailScreen({ route }: detailProps) {
+  const navigation = useNavigation();
   const [coin, setCoin] = useState<IFCoin>({
     id: "",
     name: "",
@@ -25,18 +27,13 @@ export default function CoinDetailScreen({ route }: detailProps) {
     price_btc: "",
     rank: 0,
   });
-  const [imgCoin, setImgCoin] = useState<string>("");
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   useEffect(() => {
     setCoin(route.params.coin);
+    navigation.addListener("focus", () => getFavorite());
+    return navigation.removeListener("focus", () => getFavorite());
   }, []);
-
-  useEffect(() => {
-    if (coin.id) {
-      getFavorite();
-    }
-  }, [coin]);
 
   const toggleFavorite = () => {
     if (isFavorite) {
@@ -48,7 +45,7 @@ export default function CoinDetailScreen({ route }: detailProps) {
 
   const removeFavorite = async () => {
     try {
-      const key = `favorite-${coin.id}`;
+      const key = `favorite-${route.params.coin.id}`;
 
       const removed = await Storage.instance.remove(key);
 
@@ -63,7 +60,7 @@ export default function CoinDetailScreen({ route }: detailProps) {
   const addFavorite = async () => {
     try {
       const coinJson = JSON.stringify(coin);
-      const key = `favorite-${coin.id}`;
+      const key = `favorite-${route.params.coin.id}`;
 
       const stored = await Storage.instance.store(key, coinJson);
 
@@ -77,7 +74,7 @@ export default function CoinDetailScreen({ route }: detailProps) {
 
   const getFavorite = async () => {
     try {
-      const key = `favorite-${coin.id}`;
+      const key = `favorite-${route.params.coin.id}`;
       console.log(key);
 
       const favoriteCoin = await Storage.instance.get(key);
