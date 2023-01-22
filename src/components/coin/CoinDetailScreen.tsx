@@ -33,7 +33,7 @@ export default function CoinDetailScreen({ route }: detailProps) {
     setCoin(route.params.coin);
     navigation.addListener("focus", () => getFavorite());
     return navigation.removeListener("focus", () => getFavorite());
-  }, []);
+  }, [navigation]);
 
   const toggleFavorite = () => {
     if (isFavorite) {
@@ -78,8 +78,11 @@ export default function CoinDetailScreen({ route }: detailProps) {
       console.log(key);
 
       const favoriteCoin = await Storage.instance.get(key);
-      if (favoriteCoin?.length) {
+      console.log(favoriteCoin);
+      if (favoriteCoin) {
         setIsFavorite(true);
+      } else {
+        setIsFavorite(false);
       }
     } catch (error) {}
   };

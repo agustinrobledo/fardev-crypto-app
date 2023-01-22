@@ -11,9 +11,8 @@ export default function FavoriteDetailScreen() {
   const [favoriteCoins, setFavoriteCoins] = useState<IFCoin[]>([]);
   console.log(favoriteCoins);
   useEffect(() => {
-    navigation.addListener("focus", () => loadFavoriteCoins());
-    return navigation.removeListener("focus", () => loadFavoriteCoins());
-  }, []);
+    return navigation.addListener("focus", () => loadFavoriteCoins());
+  }, [navigation]);
 
   const loadFavoriteCoins = async () => {
     try {
@@ -21,10 +20,11 @@ export default function FavoriteDetailScreen() {
       if (keys?.length) {
         const coins = await Storage.instance.multiGet(keys);
         const favorites: IFCoin[] = coins.map((item) => JSON.parse(item[1]));
-        console;
+        console.log(favorites);
         setFavoriteCoins(favorites);
+      } else {
+        setFavoriteCoins([]);
       }
-      console.log(keys);
     } catch (error) {}
   };
 
