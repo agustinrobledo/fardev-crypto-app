@@ -42,6 +42,18 @@ export default class Storage {
     }
   };
 
+  getAllFavoriteKeys = async (): Promise<string[] | undefined> => {
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      const favoriteKeys = keys.filter((item) =>
+        item.split("-").includes("favorite")
+      );
+      return favoriteKeys;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   remove = async (key: string) => {
     try {
       await AsyncStorage.removeItem(key);
