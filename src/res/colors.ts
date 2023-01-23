@@ -7,6 +7,7 @@ const colors = {
   labels: "#332f4f",
   text: "#fffffe",
   stroke: "black",
+  green: "#588157",
 };
 
 export default colors;

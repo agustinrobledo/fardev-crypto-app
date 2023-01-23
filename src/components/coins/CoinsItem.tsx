@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, Image } from "react-native";
 import React from "react";
 import { IFCoin } from "../../types/coins/typeCoins";
 import colors from "../../res/colors";
@@ -13,7 +13,21 @@ export default function CoinsItem({ coin, handlePress }: coinsItemTypeProps) {
     <Pressable onPress={handlePress} style={styles.itemContainer}>
       <Text style={styles.symbol}>{coin.symbol}</Text>
       <Text style={styles.name}>{coin.name}</Text>
-      <Text style={styles.price}>${Number(coin.price_usd).toFixed(2)}</Text>
+      <View style={styles.statusContainer}>
+        <Image
+          style={
+            Number(coin.percent_change_1h) > 0
+              ? styles.upArrow
+              : styles.downArrow
+          }
+          source={
+            Number(coin.percent_change_1h) > 0
+              ? require("../../../assets/up-arrow.png")
+              : require("../../../assets/down-arrow.png")
+          }
+        />
+        <Text style={styles.price}>${Number(coin.price_usd).toFixed(2)}</Text>
+      </View>
     </Pressable>
   );
 }
@@ -34,7 +48,7 @@ const styles = StyleSheet.create({
   },
   name: {
     color: colors.text,
-    flex: 2,
+    flex: 3,
     fontSize: 16,
   },
   price: {
@@ -45,5 +59,21 @@ const styles = StyleSheet.create({
   positiveChange: {
     fontSize: 15,
     color: colors.text,
+  },
+  upArrow: {
+    height: 20,
+    width: 20,
+    tintColor: colors.green,
+  },
+  downArrow: {
+    height: 20,
+    width: 20,
+    tintColor: colors.secondary,
+  },
+  statusContainer: {
+    display: "flex",
+    flexDirection: "row",
+    flex: 2,
+    justifyContent: "space-around",
   },
 });
