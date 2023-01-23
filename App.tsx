@@ -27,6 +27,7 @@ export default function App() {
           options={{
             headerShown: false,
             tabBarActiveTintColor: colors.primary,
+            tabBarInactiveTintColor: colors.text,
             tabBarIcon: ({ color }) => (
               <Image
                 style={{ width: 20, height: 20, tintColor: color }}
@@ -41,6 +42,7 @@ export default function App() {
           options={{
             headerShown: false,
             tabBarActiveTintColor: colors.primary,
+            tabBarInactiveTintColor: colors.text,
             tabBarIcon: ({ color }) => (
               <Image
                 style={{ width: 20, height: 20, tintColor: color }}

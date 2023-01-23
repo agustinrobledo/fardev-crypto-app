@@ -161,16 +161,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   addToFavorites: {
-    paddingVertical: 20,
+    display: "flex",
     paddingHorizontal: 20,
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: colors.primary,
     flex: 3,
   },
   deleteFromFavorites: {
-    paddingVertical: 20,
-    flex: 3,
+    display: "flex",
     paddingHorizontal: 20,
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: colors.secondary,
+    flex: 3,
   },
   info: {
     paddingVertical: 10,

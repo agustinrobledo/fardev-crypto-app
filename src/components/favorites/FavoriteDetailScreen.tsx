@@ -19,6 +19,7 @@ export default function FavoriteDetailScreen() {
       const keys = await Storage.instance.getAllFavoriteKeys();
       if (keys?.length) {
         const coins = await Storage.instance.multiGet(keys);
+        //@ts-ignore
         const favorites: IFCoin[] = coins.map((item) => JSON.parse(item[1]));
         console.log(favorites);
         setFavoriteCoins(favorites);
@@ -57,11 +58,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignContent: "center",
-    paddingTop: 30,
   },
   emptyText: {
     alignSelf: "center",
     fontSize: 15,
     color: colors.text,
+    paddingTop: 30,
   },
 });
