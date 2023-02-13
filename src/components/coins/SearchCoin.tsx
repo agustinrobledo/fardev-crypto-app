@@ -17,22 +17,33 @@ const SearchCoin = ({ onChange }: typeProps) => {
     }
   };
   return (
-    <TextInput
-      style={styles.input}
-      onChangeText={handleChange}
-      value={searchValue}
-      placeholder="Search your coin:"
-      placeholderTextColor={colors.secondary}
-    />
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        onChangeText={handleChange}
+        value={searchValue}
+        placeholder="Search your coin:"
+        placeholderTextColor={colors.pink.light}
+      />
+    </View>
   );
 };
 
 export default SearchCoin;
 
 const styles = StyleSheet.create({
+  container: {
+    display: "flex",
+    alignItems: "center",
+    marginVertical: 20,
+  },
   input: {
-    color: colors.secondary,
+    borderRadius: 32,
+    color: colors.pink.light,
     padding: 15,
-    backgroundColor: colors.headline,
+    backgroundColor: colors.purple.dark,
+    width: "90%",
+    textAlign: "center",
+    fontFamily: "Violet Sans",
   },
 });

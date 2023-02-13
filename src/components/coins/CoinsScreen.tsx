@@ -47,14 +47,12 @@ export default function CoinsScreen() {
     <View style={styles.container}>
       <SearchCoin onChange={handleSearch} />
       {coins.length ? (
-        <View>
-          <FlatList
-            data={coins}
-            renderItem={({ item }) => (
-              <CoinsItem handlePress={() => handlePress(item)} coin={item} />
-            )}
-          ></FlatList>
-        </View>
+        <FlatList
+          data={coins}
+          renderItem={({ item }) => (
+            <CoinsItem handlePress={() => handlePress(item)} coin={item} />
+          )}
+        ></FlatList>
       ) : (
         <View style={styles.loadingContainer}>
           <Text>Loading...</Text>
@@ -69,8 +67,10 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: colors.pink.light,
   },
   container: {
-    backgroundColor: colors.background,
+    backgroundColor: colors.pink.light,
+    height: "100%",
   },
 });

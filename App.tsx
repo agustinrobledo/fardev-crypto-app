@@ -1,7 +1,9 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import React from "react";
+import { useFonts } from "expo-font";
+import React, { useCallback } from "react";
 import { Image } from "react-native";
+import * as SplashScreen from "expo-splash-screen";
 import CoinStack from "./src/components/coins/CoinsStack";
 import FavoritesStack from "./src/components/favorites/FavoritesStack";
 import colors from "./src/res/colors";
@@ -9,10 +11,24 @@ import colors from "./src/res/colors";
 const Tabs = createBottomTabNavigator();
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    "Violet Sans": require("./assets/VioletSans-Regular.ttf"),
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   const myTheme = {
     dark: false,
     colors: {
-      background: colors.background,
+      background: "transparent",
       primary: "rgb(255, 45, 85)",
       card: colors.background,
       text: "rgb(28, 28, 30)",
@@ -20,6 +36,7 @@ export default function App() {
       notification: "rgb(255, 69, 58)",
     },
   };
+
   return (
     <NavigationContainer theme={myTheme}>
       <Tabs.Navigator>
