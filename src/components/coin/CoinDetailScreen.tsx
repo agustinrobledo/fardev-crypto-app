@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { IFCoin } from "../../types/coins/typeCoins";
 import colors from "../../res/colors";
 import { useNavigation } from "@react-navigation/native";
+import Title from "../utils/Title";
+import Label from "../utils/Label";
 
 type detailProps = {
   route: {
@@ -88,40 +90,87 @@ export default function CoinDetailScreen({ route }: detailProps) {
   };
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <Title
+        backgroundColor={colors.green.dark}
+        color={colors.green.light}
+        image={`https://c1.coinlore.com/img/25x25/${coin.name.toLowerCase()}.png`}
+      >
+        {coin.name}
+      </Title>
+      <View style={styles.data}>
         <View style={styles.section}>
-          <Image
-            style={styles.image}
-            source={{
-              uri: `https://c1.coinlore.com/img/25x25/${coin.name.toLowerCase()}.png`,
-            }}
-          />
-          <Text style={[styles.text, styles.coinText]}>{coin.symbol}</Text>
-        </View>
-        <Pressable onPress={toggleFavorite}>
-          <View
-            style={
-              isFavorite ? styles.deleteFromFavorites : styles.addToFavorites
-            }
+          <Label
+            backgroundColor={colors.green.dark}
+            type="square"
+            width={166}
+            height={166}
           >
-            <Text>
-              {isFavorite ? "Delete from favorites" : "Add to favorites"}
+            <Text style={[styles.labelText, { color: colors.green.light }]}>
+              Price in USD
             </Text>
-          </View>
-        </Pressable>
-      </View>
-      <View style={styles.sectionInfo}>
-        <Text style={[styles.title]}>Price in USD</Text>
-        <Text style={[styles.info]}>${coin.price_usd}</Text>
-      </View>
-      <View style={styles.sectionInfo}>
-        <Text style={[styles.title]}>Rank</Text>
-        <Text style={[styles.info]}>{coin.rank}</Text>
-      </View>
-      <View style={styles.sectionInfo}>
-        <Text style={[styles.title]}>Last hour change:</Text>
-        <Text style={[styles.info]}>{coin.percent_change_1h}</Text>
-      </View>
+            <Text style={[styles.labelNumber, { color: colors.green.light }]}>
+              ${coin.price_usd}
+            </Text>
+          </Label>
+          <Pressable onPress={toggleFavorite}>
+            <Label
+              backgroundColor={colors.blue.dark}
+              type="circle"
+              width={166}
+              height={166}
+            >
+              <Image
+                style={styles.favoriteIcon}
+                source={require("../../../assets/hearth.png")}
+              />
+            </Label>
+          </Pressable>
+        </View>
+
+        <View style={styles.section}>
+          <Label
+            backgroundColor={colors.green.light}
+            type="square"
+            width={"100%"}
+            height={166}
+          >
+            <Text style={[styles.labelText, { color: colors.blue.dark }]}>
+              Percent change in the past 1h
+            </Text>
+            <Text style={[styles.labelNumber, { color: colors.blue.dark }]}>
+              ${coin.percent_change_1h}
+            </Text>
+          </Label>
+        </View>
+        <View style={styles.section}>
+          <Label
+            backgroundColor={colors.blue.extraLight}
+            type="circle"
+            width={166}
+            height={166}
+          >
+            <Text style={[styles.labelText, { color: colors.green.dark }]}>
+              Rank
+            </Text>
+            <Text style={[styles.labelNumber, { color: colors.green.dark }]}>
+              #{coin.rank}
+            </Text>
+          </Label>
+          <Label
+            backgroundColor={colors.blue.dark}
+            type="square"
+            width={166}
+            height={166}
+          >
+            <Text style={[styles.labelText, { color: colors.green.light }]}>
+              Price in BTC{" "}
+            </Text>
+            <Text style={[styles.labelNumber, { color: colors.green.light }]}>
+              #{coin.price_btc}
+            </Text>
+          </Label>
+        </View>
+        {/* 
       <View style={styles.sectionInfo}>
         <Text style={styles.title}>Last day change:</Text>
         <Text style={styles.info}>{coin.percent_change_24h}</Text>
@@ -129,6 +178,7 @@ export default function CoinDetailScreen({ route }: detailProps) {
       <View style={styles.sectionInfo}>
         <Text style={styles.title}>Csupply:</Text>
         <Text style={styles.info}>{coin.csupply}</Text>
+</View> */}
       </View>
     </View>
   );
@@ -136,22 +186,35 @@ export default function CoinDetailScreen({ route }: detailProps) {
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
     height: "100%",
-    backgroundColor: colors.background,
+    backgroundColor: colors.pink.light,
   },
-  text: {
-    color: "white",
-    fontSize: 16,
+  data: {
+    alignSelf: "center",
+    width: "90%",
+  },
+  section: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 20,
   },
   header: {
     display: "flex",
     flexDirection: "row",
   },
-  coinText: {
-    fontWeight: "600",
-    marginLeft: 4,
-    fontSize: 16,
+  labelText: {
+    fontSize: 24,
+    fontFamily: "Violet Sans",
+  },
+  labelNumber: {
+    fontSize: 32,
+    fontFamily: "Violet Sans",
+  },
+  favoriteIcon: {
+    width: 80,
+    height: 80,
+    tintColor: colors.pink.light,
   },
   title: {
     backgroundColor: colors.headline,
@@ -180,14 +243,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     color: colors.text,
-  },
-  section: {
-    paddingHorizontal: 20,
-    flex: 1,
-    paddingVertical: 10,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
   },
   sectionInfo: {
     display: "flex",

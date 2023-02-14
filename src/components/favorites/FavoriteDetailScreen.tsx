@@ -5,6 +5,7 @@ import type { IFCoin } from "../../types/coins/typeCoins";
 import Storage from "../../libs/storage";
 import CoinsItem from "../coins/CoinsItem";
 import { useNavigation } from "@react-navigation/native";
+import Title from "../utils/Title";
 
 export default function FavoriteDetailScreen() {
   const navigation = useNavigation();
@@ -36,12 +37,20 @@ export default function FavoriteDetailScreen() {
 
   return (
     <View style={styles.container}>
+      <Title backgroundColor={colors.green.light} color={colors.blue.dark}>
+        Favorites
+      </Title>
       {favoriteCoins.length ? (
-        <View>
+        <View style={styles.coinList}>
           <FlatList
             data={favoriteCoins}
             renderItem={({ item }) => (
-              <CoinsItem handlePress={() => handlePress(item)} coin={item} />
+              <CoinsItem
+                handlePress={() => handlePress(item)}
+                coin={item}
+                color={colors.blue.dark}
+                backgroundColor="white"
+              />
             )}
           ></FlatList>
         </View>
@@ -58,6 +67,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignContent: "center",
+    paddingTop: 20,
+    height: "100%",
+    backgroundColor: colors.pink.light,
+  },
+  coinList: {
+    marginTop: 20,
   },
   emptyText: {
     alignSelf: "center",

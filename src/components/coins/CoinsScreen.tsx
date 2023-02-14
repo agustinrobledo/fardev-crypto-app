@@ -50,7 +50,12 @@ export default function CoinsScreen() {
         <FlatList
           data={coins}
           renderItem={({ item }) => (
-            <CoinsItem handlePress={() => handlePress(item)} coin={item} />
+            <CoinsItem
+              handlePress={() => handlePress(item)}
+              coin={item}
+              backgroundColor="white"
+              color={colors.purple.dark}
+            />
           )}
         ></FlatList>
       ) : (
@@ -72,5 +77,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.pink.light,
     height: "100%",
+    paddingTop: 10,
   },
 });

@@ -6,13 +6,23 @@ import colors from "../../res/colors";
 type coinsItemTypeProps = {
   coin: IFCoin;
   handlePress: () => void;
+  backgroundColor: string;
+  color: string;
 };
 
-export default function CoinsItem({ coin, handlePress }: coinsItemTypeProps) {
+export default function CoinsItem({
+  coin,
+  handlePress,
+  backgroundColor,
+  color,
+}: coinsItemTypeProps) {
   return (
-    <Pressable onPress={handlePress} style={styles.itemContainer}>
-      <Text style={styles.symbol}>{coin.symbol}</Text>
-      <Text style={styles.name}>{coin.name}</Text>
+    <Pressable
+      onPress={handlePress}
+      style={[styles.itemContainer, { backgroundColor: backgroundColor }]}
+    >
+      <Text style={[styles.symbol, { color: color }]}>{coin.symbol}</Text>
+      <Text style={[styles.name, { color: color }]}>{coin.name}</Text>
       <View style={styles.statusContainer}>
         <Image
           style={
@@ -26,7 +36,9 @@ export default function CoinsItem({ coin, handlePress }: coinsItemTypeProps) {
               : require("../../../assets/down-arrow.png")
           }
         />
-        <Text style={styles.price}>${Number(coin.price_usd).toFixed(2)}</Text>
+        <Text style={[styles.price, { color: color }]}>
+          ${Number(coin.price_usd).toFixed(2)}
+        </Text>
       </View>
     </Pressable>
   );
@@ -37,7 +49,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     padding: 15,
-    backgroundColor: "white",
     marginVertical: 5,
     width: "90%",
     alignSelf: "center",
@@ -68,12 +79,12 @@ const styles = StyleSheet.create({
   upArrow: {
     height: 20,
     width: 20,
-    tintColor: colors.green,
+    tintColor: colors.green.dark,
   },
   downArrow: {
     height: 20,
     width: 20,
-    tintColor: colors.secondary,
+    tintColor: colors.red.dark,
   },
   statusContainer: {
     display: "flex",

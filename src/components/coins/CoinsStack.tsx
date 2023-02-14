@@ -13,24 +13,14 @@ export default function CoinStack() {
         name="Crypto Tracker"
         component={CoinsScreen}
         options={{
-          cardStyle: {
-            backgroundColor: colors.pink.light,
-          },
           headerShown: false,
         }}
       />
       <Stack.Screen
         name="CoinDetail"
         component={CoinDetailScreen}
-        options={({ route }) => ({
-          title: route.params.coin.name,
-          headerStyle: { backgroundColor: colors.background },
-          headerTitleAlign: "center",
-          headerTintColor: colors.text,
-        })}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
 }
-
-// How to change screen backgroundColor in specific screen of stack.screen?

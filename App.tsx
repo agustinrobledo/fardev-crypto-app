@@ -30,21 +30,33 @@ export default function App() {
     colors: {
       background: "transparent",
       primary: "rgb(255, 45, 85)",
-      card: colors.background,
+      card: "transparent",
+      border: "transparent",
       text: "rgb(28, 28, 30)",
-      border: "rgb(199, 199, 204)",
       notification: "rgb(255, 69, 58)",
     },
   };
 
   return (
     <NavigationContainer theme={myTheme}>
-      <Tabs.Navigator>
+      <Tabs.Navigator
+        screenOptions={{
+          tabBarHideOnKeyboard: true,
+        }}
+      >
         <Tabs.Screen
           options={{
             headerShown: false,
-            tabBarActiveTintColor: colors.primary,
-            tabBarInactiveTintColor: colors.text,
+            tabBarActiveTintColor: colors.pink.light,
+            tabBarInactiveTintColor: "white",
+            tabBarShowLabel: false,
+            tabBarStyle: {
+              backgroundColor: colors.purple.dark,
+              position: "absolute",
+              bottom: 0,
+              borderTopLeftRadius: 16,
+              borderTopRightRadius: 16,
+            },
             tabBarIcon: ({ color }) => (
               <Image
                 style={{ width: 20, height: 20, tintColor: color }}
@@ -58,8 +70,16 @@ export default function App() {
         <Tabs.Screen
           options={{
             headerShown: false,
-            tabBarActiveTintColor: colors.primary,
-            tabBarInactiveTintColor: colors.text,
+            tabBarActiveTintColor: colors.pink.light,
+            tabBarInactiveTintColor: "white",
+            tabBarShowLabel: false,
+            tabBarStyle: {
+              backgroundColor: colors.purple.dark,
+              position: "absolute",
+              bottom: 0,
+              borderTopLeftRadius: 16,
+              borderTopRightRadius: 16,
+            },
             tabBarIcon: ({ color }) => (
               <Image
                 style={{ width: 20, height: 20, tintColor: color }}
